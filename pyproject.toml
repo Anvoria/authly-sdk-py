@@ -11,3 +11,8 @@ dependencies = [
     "pyjwt>=2.10.1",
 ]
 license = { file = "LICENSE" }
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.9",
+]
