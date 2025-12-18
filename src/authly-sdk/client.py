@@ -1,5 +1,6 @@
 from .config import DEFAULT_JWKS_PATH
-from .jwt.verifier import JWTVerifier
+from .jwt import JWTVerifier
+from .types import Claims
 
 
 class AuthlyClient:
@@ -16,3 +17,9 @@ class AuthlyClient:
             jwks_url=f"{self._issuer}{self._jwks_path}",
             algorithms=self._algorithms,
         )
+
+    def verify(self, token: str) -> Claims:
+        """
+        Verify a token and return the claims.
+        """
+        return self._verifier.verify(token)
