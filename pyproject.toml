@@ -7,5 +7,7 @@ requires-python = ">=3.12"
 authors = [
     { name = "zeediv", email = "hello@zdv.sh" },
 ]
-dependencies = []
+dependencies = [
+    "pyjwt>=2.10.1",
+]
 license = { file = "LICENSE" }
