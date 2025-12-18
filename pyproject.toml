@@ -1,0 +1,11 @@
+[project]
+name = "authly-sdk-py"
+version = "0.1.0"
+description = "A library for building authentication systems using Authly."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "zeediv", email = "hello@zdv.sh" },
+]
+dependencies = []
+license = { file = "LICENSE" }
