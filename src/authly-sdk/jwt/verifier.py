@@ -13,6 +13,13 @@ from jwt.exceptions import (
 
 
 class JWTVerifier:
+    """
+    Internal class for verifying JWT tokens using PyJWKClient.
+
+    This class handles fetching public keys from a JWKS endpoint and
+    performing the actual token verification and decoding.
+    """
+
     def __init__(
         self,
         *,
@@ -21,6 +28,15 @@ class JWTVerifier:
         jwks_url: str,
         algorithms: list[str] | None = None,
     ) -> None:
+        """
+        Initialize the JWT verifier.
+
+        Args:
+            issuer: The expected issuer (iss claim).
+            audience: The expected audience (aud claim).
+            jwks_url: The full URL to the JWKS endpoint.
+            algorithms: List of allowed signing algorithms.
+        """
         self._issuer = issuer
         self._audience = audience
         self._algorithms = algorithms or DEFAULT_ALGORITHMS
@@ -29,7 +45,17 @@ class JWTVerifier:
 
     def verify(self, token: str) -> Claims:
         """
-        Verify a JWT token and return the claims.
+        Verify the JWT token and return its claims.
+
+        Args:
+            token: The encoded JWT token string.
+
+        Returns:
+            Claims: The decoded claims from the token.
+
+        Raises:
+            TokenExpiredError: If the token's exp claim is in the past.
+            TokenInvalidError: If the token is otherwise invalid.
         """
         try:
             signing_key = self.__get_signing_key(token)
@@ -58,6 +84,6 @@ class JWTVerifier:
 
     def __get_signing_key(self, token: str) -> PyJWK:
         """
-        Get the signing key for a JWT token.
+        Retrieve the appropriate public key from the JWKS for the given token.
         """
         return self._jwks_client.get_signing_key_from_jwt(token)
