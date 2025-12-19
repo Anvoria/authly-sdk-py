@@ -23,6 +23,3 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/authly_sdk"]
-
-[tool.pyright]
-typeCheckingMode = "standard"
