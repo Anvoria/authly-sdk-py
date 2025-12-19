@@ -3,7 +3,7 @@ from ..config import DEFAULT_ALGORITHMS
 from jwt import PyJWK, PyJWKClient
 import jwt
 from ..exceptions import TokenExpiredError, TokenInvalidError
-from ..schemas import Claims
+from ..types import Claims
 from jwt.exceptions import (
     ExpiredSignatureError,
     InvalidAudienceError,
