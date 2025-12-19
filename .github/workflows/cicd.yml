@@ -57,6 +57,11 @@ jobs:
       - name: Set up Python
         run: uv python install 3.12
 
+      - name: Set project version
+        run: |
+          VERSION=${{ github.ref_name }}
+          uv version ${VERSION#v}
+
       - name: Build package
         run: uv build
 
