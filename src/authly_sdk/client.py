@@ -1,6 +1,6 @@
 from .config import DEFAULT_JWKS_PATH
-from .jwt import JWTVerifier
-from .types import Claims
+from .tokens import JWTVerifier
+from .schemas import Claims
 
 
 class AuthlyClient:
@@ -10,6 +10,12 @@ class AuthlyClient:
     This client handles the validation of tokens against a specific issuer and audience,
     fetching the public keys (JWKS) automatically.
     """
+
+    _issuer: str
+    _audience: str
+    _jwks_path: str
+    _algorithms: list[str] | None
+    _verifier: JWTVerifier
 
     def __init__(
         self,

@@ -1,8 +1,9 @@
+from typing import cast
 from ..config import DEFAULT_ALGORITHMS
 from jwt import PyJWK, PyJWKClient
 import jwt
 from ..exceptions import TokenExpiredError, TokenInvalidError
-from ..types import Claims
+from ..schemas import Claims
 from jwt.exceptions import (
     ExpiredSignatureError,
     InvalidAudienceError,
@@ -19,6 +20,11 @@ class JWTVerifier:
     This class handles fetching public keys from a JWKS endpoint and
     performing the actual token verification and decoding.
     """
+
+    _issuer: str
+    _audience: str
+    _algorithms: list[str]
+    _jwks_client: PyJWKClient
 
     def __init__(
         self,
@@ -60,15 +66,15 @@ class JWTVerifier:
         try:
             signing_key = self.__get_signing_key(token)
 
-            payload = jwt.decode(
+            payload = jwt.decode(  # pyright: ignore[reportUnknownMemberType, reportAny]
                 token,
-                signing_key.key,
+                signing_key.key,  # pyright: ignore[reportAny]
                 algorithms=self._algorithms,
                 audience=self._audience,
                 issuer=self._issuer,
             )
 
-            return Claims(*payload)
+            return cast(Claims, payload)
         except ExpiredSignatureError as e:
             raise TokenExpiredError("Token has expired") from e
 
