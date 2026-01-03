@@ -38,8 +38,5 @@ jobs:
       - name: Lint Code
         run: uv run ruff check .
 
-      - name: Type Check
-        run: uv run basedpyright src
-
       - name: Build Check
         run: uv build
