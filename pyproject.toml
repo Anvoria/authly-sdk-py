@@ -12,6 +12,11 @@ dependencies = [
 ]
 license = { file = "LICENSE" }
 
+[project.optional-dependencies]
+fastapi = [
+    "fastapi>=0.128.0",
+]
+
 [dependency-groups]
 dev = [
     "ruff>=0.14.9",
