@@ -31,7 +31,7 @@ class Claims(TypedDict):
     """Dictionary of permissions granted to the user, where keys are resource names and values are permission levels."""
 
     pver: NotRequired[int]
-    """Protocol version."""
+    """Permission version."""
 
     scope: NotRequired[str]
     """Space-separated list of scopes."""
