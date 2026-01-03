@@ -4,11 +4,15 @@ on:
   push:
     branches:
       - main
+      - release/*
+      - feat/*
     tags:
       - 'v*'
   pull_request:
     branches:
       - main
+      - release/*
+      - feat/*
   workflow_dispatch:
 
 jobs:
