@@ -2,8 +2,8 @@ from typing import Annotated
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from ...client import AuthlyClient
-from ...types import Claims
 from ...exceptions import TokenExpiredError, TokenInvalidError
+from .schemas import AuthlyUser
 
 
 class AuthlyDep:
@@ -21,13 +21,14 @@ class AuthlyDep:
         creds: Annotated[
             HTTPAuthorizationCredentials, Depends(HTTPBearer(auto_error=True))
         ],
-    ) -> Claims:
+    ) -> AuthlyUser:
         """
         Verify the token from the Authorization header.
         """
         token = creds.credentials
         try:
-            return self._client.verify(token)
+            claims = self._client.verify(token)
+            return AuthlyUser(**claims)
         except TokenExpiredError:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
