@@ -1,5 +1,5 @@
 from .client import AuthlyClient
-from .schemas import Claims
+from .types import Claims
 from .exceptions import AuthlyError, TokenExpiredError, TokenInvalidError
 
 __all__ = [

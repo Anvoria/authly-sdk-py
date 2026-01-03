@@ -1,6 +1,6 @@
 from .config import DEFAULT_JWKS_PATH
 from .tokens import JWTVerifier
-from .schemas import Claims
+from .types import Claims
 
 
 class AuthlyClient:
